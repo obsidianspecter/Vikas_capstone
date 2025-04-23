@@ -1,0 +1,204 @@
+/* Theme Gallery Container */
+.theme-gallery {
+    padding: 2rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.theme-gallery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.theme-gallery-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--bs-heading-color, #212529);
+}
+
+/* Category Filters */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--bs-primary);
+    background: transparent;
+    color: var(--bs-primary);
+    border-radius: 2rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--bs-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Theme Cards Grid */
+.themes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.theme-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.theme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.theme-preview {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-info {
+    padding: 1.5rem;
+}
+
+.theme-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--bs-heading-color, #212529);
+}
+
+.theme-description {
+    font-size: 0.9rem;
+    color: var(--bs-secondary-color, #6c757d);
+    margin-bottom: 1rem;
+}
+
+.theme-category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--bs-light);
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    color: var(--bs-secondary);
+}
+
+/* Theme Modal */
+.theme-modal .modal-content {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.theme-modal .modal-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.theme-modal .modal-body {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.modal-preview {
+    height: 300px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.color-item {
+    text-align: center;
+}
+
+.color-preview {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+    border: 2px solid var(--bs-border-color);
+}
+
+.color-label {
+    font-size: 0.8rem;
+    color: var(--bs-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .theme-gallery {
+        padding: 1rem;
+    }
+
+    .theme-gallery-title {
+        font-size: 2rem;
+    }
+
+    .themes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .theme-preview {
+        height: 150px;
+    }
+
+    .modal-preview {
+        height: 200px;
+    }
+
+    .color-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+}
+
+/* Animations */
+.theme-card {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Tooltips */
+.tooltip {
+    font-size: 0.875rem;
+}
+
+/* Accessibility */
+.theme-card:focus-within {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-card,
+    .filter-btn {
+        transition: none;
+    }
+} 

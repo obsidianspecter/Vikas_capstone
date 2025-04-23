@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Theme Selector - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>Personalize Your Experience</h2>
+    <p>Browse, preview, and apply different themes to customize your experience.</p>
+</section>
+
+<section class="theme-categories">
+    <h3>Categories</h3>
+    <div class="category-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="dark">Dark</button>
+        <button class="filter-btn" data-filter="light">Light</button>
+        <button class="filter-btn" data-filter="color">Color</button>
+    </div>
+</section>
+
+<section class="themes-grid">
+    {% for theme in themes %}
+    <div class="theme-card" data-category="{{ theme.category }}">
+        <div class="theme-preview" style="background-color: {{ theme.background_color }};">
+            <div class="preview-header" style="background-color: {{ theme.primary_color }}; color: {{ theme.text_color }};">
+                Preview
+            </div>
+            <div class="preview-content">
+                <div class="preview-button" style="background-color: {{ theme.secondary_color }}; color: {{ theme.text_color }};">
+                    Button
+                </div>
+                <div class="preview-accent" style="background-color: {{ theme.accent_color }};">
+                </div>
+            </div>
+        </div>
+        <div class="theme-info">
+            <h4>{{ theme.name }}</h4>
+            <p>{{ theme.description }}</p>
+            <div class="theme-actions">
+                <a href="{{ url_for('theme_detail', theme_id=theme.id) }}" class="btn btn-secondary">Details</a>
+                <form action="{{ url_for('apply_theme', theme_id=theme.id) }}" method="post" class="theme-form" data-theme-id="{{ theme.id }}">
+                    <button type="submit" class="btn btn-primary {% if theme.id == active_theme_id %}active{% endif %}">
+                        {% if theme.id == active_theme_id %}Applied{% else %}Apply{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const themeCards = document.querySelectorAll('.theme-card');
+        const themeForms = document.querySelectorAll('.theme-form');
+        
+        // Theme filtering logic
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter theme cards
+                themeCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Theme application logic
+        themeForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const themeId = this.getAttribute('data-theme-id');
+                const submitButton = this.querySelector('button[type="submit"]');
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                        return;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.success) {
+                        // Update all theme buttons
+                        document.querySelectorAll('.theme-form button').forEach(btn => {
+                            btn.classList.remove('active');
+                            btn.textContent = 'Apply';
+                        });
+                        
+                        // Update the clicked button
+                        submitButton.classList.add('active');
+                        submitButton.textContent = 'Applied';
+                        
+                        // Reload the page to apply the theme
+                        window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error applying theme:', error);
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

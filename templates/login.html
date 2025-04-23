@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Theme Selector{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="auth-form">
+        <h2 class="text-center mb-4">Login</h2>
+        <form method="POST" action="{{ url_for('login') }}" class="needs-validation" novalidate>
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       required 
+                       class="form-control"
+                       minlength="3"
+                       pattern="[a-zA-Z0-9_-]+"
+                       title="Username can only contain letters, numbers, underscores, and hyphens">
+                <div class="invalid-feedback">
+                    Please enter a valid username (minimum 3 characters).
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       required 
+                       class="form-control"
+                       minlength="6">
+                <div class="invalid-feedback">
+                    Please enter your password (minimum 6 characters).
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+        </form>
+        <div class="auth-links mt-3 text-center">
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %}

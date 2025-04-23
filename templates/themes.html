@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4">Theme Gallery</h1>
+    
+    <div class="category-filters">
+        <button class="filter-btn active" data-category="all">All Themes</button>
+        {% for category in categories %}
+        <button class="filter-btn" data-category="{{ category }}">{{ category }}</button>
+        {% endfor %}
+    </div>
+
+    <div class="themes-grid">
+        {% for theme in themes %}
+        <div class="theme-card" data-category="{{ theme.category }}">
+            <div class="theme-preview" style="background: linear-gradient(135deg, {{ theme.primary_color }}, {{ theme.secondary_color }})">
+                <div class="preview-content">
+                    <button class="preview-button" style="background: {{ theme.accent_color }}; color: {{ theme.text_color }}">
+                        Preview Button
+                    </button>
+                    <div class="preview-accent" style="background: {{ theme.accent_color }}"></div>
+                </div>
+            </div>
+            <div class="theme-info">
+                <h3>{{ theme.name }}</h3>
+                <p class="theme-description">{{ theme.description }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="theme-category">{{ theme.category }}</span>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themeModal{{ theme.id }}">
+                        Apply Theme
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme Modal -->
+        <div class="modal fade" id="themeModal{{ theme.id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ theme.name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="theme-preview theme-preview-large" style="background: linear-gradient(135deg, {{ theme.primary_color }}, {{ theme.secondary_color }})">
+                            <div class="preview-content">
+                                <button class="preview-button" style="background: {{ theme.accent_color }}; color: {{ theme.text_color }}">
+                                    Preview Button
+                                </button>
+                                <div class="preview-accent" style="background: {{ theme.accent_color }}"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="color-grid">
+                            <div class="color-swatch">
+                                <div class="color-box" style="background: {{ theme.primary_color }}"></div>
+                                <span class="color-name">Primary Color</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="color-box" style="background: {{ theme.secondary_color }}"></div>
+                                <span class="color-name">Secondary Color</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="color-box" style="background: {{ theme.accent_color }}"></div>
+                                <span class="color-name">Accent Color</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="color-box" style="background: {{ theme.text_color }}"></div>
+                                <span class="color-name">Text Color</span>
+                            </div>
+                        </div>
+                        
+                        <p class="mt-4">{{ theme.description }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="{{ url_for('apply_theme', theme_id=theme.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Apply Theme</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const themeCards = document.querySelectorAll('.theme-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            themeCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+{% endblock %}
+{% endblock %} 

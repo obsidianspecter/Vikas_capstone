@@ -1,0 +1,679 @@
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #0099ff;
+    --text-color: #333333;
+    --background-color: #f8f8f8;
+    --accent-color: #00ccff;
+    --container-width: 1200px;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --header-text: #ffffff;
+    --nav-text: #ffffff;
+    --button-text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background-color: var(--primary-color);
+    color: var(--header-text) !important;
+    padding: 1rem 0;
+    box-shadow: var(--box-shadow);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo and Icon */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.firefly-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--header-text);
+    transition: var(--transition);
+}
+
+.logo-container:hover .firefly-icon {
+    transform: rotate(180deg);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--header-text) !important;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    color: var(--nav-text) !important;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+nav ul li a:hover {
+    opacity: 0.8;
+}
+
+/* Main Content */
+main {
+    padding: 2rem 0;
+    min-height: calc(100vh - 140px);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333333;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #666666;
+}
+
+/* Theme Categories */
+.theme-categories {
+    margin-bottom: 2rem;
+}
+
+.theme-categories h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+/* Category Filters */
+.category-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.5rem;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    background: transparent;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    border-color: #6c757d;
+    color: #495057;
+}
+
+.filter-btn.active {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+/* Themes Grid */
+.themes-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.theme-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Theme Preview */
+.theme-preview {
+    height: 180px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.preview-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.preview-button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+
+.preview-button:hover {
+    transform: scale(1.05);
+}
+
+.preview-accent {
+    width: 60%;
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Theme Details Modal */
+.theme-preview-large {
+    height: 240px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.color-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.color-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.color-name {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Theme Info */
+.theme-info {
+    padding: 1.5rem;
+}
+
+.theme-info h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.theme-info p {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.theme-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--button-text) !important;
+    border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--accent-color);
+}
+
+.btn-primary.active {
+    background-color: var(--accent-color);
+    color: var(--button-text) !important;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--button-text) !important;
+    border: 1px solid transparent;
+}
+
+.btn-secondary:hover {
+    background-color: var(--accent-color);
+    border-color: var(--primary-color);
+}
+
+/* Theme Detail Page */
+.theme-detail {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.theme-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.theme-header h2 {
+    color: var(--text-color);
+}
+
+.theme-description {
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--secondary-color);
+    color: var(--button-text) !important;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.preview-container {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.preview-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.preview-body {
+    display: flex;
+    min-height: 300px;
+}
+
+.sidebar {
+    width: 200px;
+    padding: 1rem;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.sidebar ul li:hover {
+    opacity: 0.8;
+}
+
+.sidebar ul li.active {
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.action-buttons button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Theme Colors Section */
+.theme-colors h3 {
+    margin-bottom: 1rem;
+}
+
+.color-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.color-swatch {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+}
+
+.color-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.color-name {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.color-value {
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+/* Auth Forms */
+.auth-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.auth-form h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.form-actions {
+    margin-top: 2rem;
+}
+
+.form-actions button {
+    width: 100%;
+    padding: 0.75rem;
+}
+
+.auth-links {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.auth-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* Profile Page */
+.profile {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.profile h2 {
+    margin-bottom: 1.5rem;
+}
+
+.profile-info {
+    margin-bottom: 2rem;
+}
+
+.profile-info p {
+    margin-bottom: 0.5rem;
+}
+
+.profile-themes h3 {
+    margin-bottom: 1.5rem;
+}
+
+.active-theme {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.active-theme .theme-preview {
+    width: 250px;
+    height: 150px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: var(--header-text) !important;
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .themes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-filters {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .theme-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .preview-body {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+    }
+    
+    .active-theme {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .active-theme .theme-preview {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    nav ul {
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0 0.75rem;
+    }
+    
+    .hero h2 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+}
+
+/* Theme Preview Classes */
+.purple-rain-theme {
+    background: linear-gradient(135deg, #4a148c, #7b1fa2);
+    border-bottom: 4px solid #9c27b0;
+}
+
+.ruby-red-theme {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f);
+    border-bottom: 4px solid #f44336;
+}
+
+.mint-fresh-theme {
+    background: linear-gradient(135deg, #00897b, #26a69a);
+    border-bottom: 4px solid #4db6ac;
+}
+
+.midnight-blue-theme {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    border-bottom: 4px solid #3949ab;
+}
+
+.golden-hour-theme {
+    background: linear-gradient(135deg, #ff6f00, #ffa000);
+    border-bottom: 4px solid #ffc107;
+}
+
+.neon-dreams-theme {
+    background: linear-gradient(135deg, #00bcd4, #1de9b6);
+    border-bottom: 4px solid #64ffda;
+}
+
+.coffee-break-theme {
+    background: linear-gradient(135deg, #5d4037, #795548);
+    border-bottom: 4px solid #8d6e63;
+}
+
+/* New Theme Preview Classes */
+.arctic-frost-theme {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    border-bottom: 4px solid #00bcd4;
+}
+
+.emerald-city-theme {
+    background: linear-gradient(135deg, #2e7d32, #388e3c);
+    border-bottom: 4px solid #ffd700;
+}
+
+.desert-sunset-theme {
+    background: linear-gradient(135deg, #ff9e80, #ff6e40);
+    border-bottom: 4px solid #ff3d00;
+}
+
+.cosmic-night-theme {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    border-bottom: 4px solid #7c4dff;
+}
+
+.sakura-spring-theme {
+    background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+    border-bottom: 4px solid #ec407a;
+}
+
+.cyber-punk-theme {
+    background: linear-gradient(135deg, #ff00ff, #00ff00);
+    border-bottom: 4px solid #00ffff;
+}
+
+.autumn-breeze-theme {
+    background: linear-gradient(135deg, #ff5722, #ff8a65);
+    border-bottom: 4px solid #ffa000;
+}
+
+/* Button States */
+.btn-success {
+    background-color: #4caf50 !important;
+    border-color: #43a047 !important;
+    color: white !important;
+}
+
+.btn-danger {
+    background-color: #f44336 !important;
+    border-color: #e53935 !important;
+    color: white !important;
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

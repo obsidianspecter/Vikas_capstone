@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Theme Selector{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="profile">
+        <h2>Your Profile</h2>
+        <div class="profile-info">
+            <p><strong>Username:</strong> {{ current_user.username }}</p>
+            <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+        </div>
+        
+        <div class="profile-themes">
+            <h3>Current Theme</h3>
+            {% if current_user.active_theme %}
+            <div class="active-theme">
+                <div class="theme-preview {{ current_user.active_theme.name.lower().replace(' ', '-') }}-theme"></div>
+                <div class="theme-info">
+                    <h4>{{ current_user.active_theme.name }}</h4>
+                    <p>{{ current_user.active_theme.description }}</p>
+                    <span class="badge bg-secondary">{{ current_user.active_theme.category }}</span>
+                </div>
+            </div>
+            {% else %}
+            <p>No theme currently selected. <a href="{{ url_for('themes') }}">Browse themes</a> to choose one.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ theme.name }} - Theme Selector{% endblock %}
+
+{% block content %}
+<section class="theme-detail">
+    <div class="theme-header">
+        <h2>{{ theme.name }}</h2>
+        <div class="theme-actions">
+            <form action="{{ url_for('apply_theme', theme_id=theme.id) }}" method="post" class="theme-form" data-theme-id="{{ theme.id }}">
+                <button type="submit" class="btn btn-primary">Apply Theme</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="theme-description">
+        <p>{{ theme.description }}</p>
+        <div class="theme-meta">
+            <span class="category-badge">{{ theme.category }}</span>
+        </div>
+    </div>
+    
+    <div class="theme-preview-large">
+        <h3>Preview</h3>
+        <div class="preview-container" style="background-color: {{ theme.background_color }};">
+            <div class="preview-header" style="background-color: {{ theme.primary_color }}; color: {{ theme.text_color }};">
+                <div class="header-title">Application Header</div>
+                <div class="header-actions">
+                    <div class="preview-button" style="background-color: {{ theme.secondary_color }}; color: {{ theme.text_color }};">
+                        Action 1
+                    </div>
+                    <div class="preview-button" style="background-color: {{ theme.secondary_color }}; color: {{ theme.text_color }};">
+                        Action 2
+                    </div>
+                </div>
+            </div>
+            <div class="preview-body">
+                <div class="sidebar" style="background-color: {{ theme.secondary_color }}; color: {{ theme.text_color }};">
+                    <ul>
+                        <li class="active">Menu Item 1</li>
+                        <li>Menu Item 2</li>
+                        <li>Menu Item 3</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <h4 style="color: {{ theme.text_color }};">Content Title</h4>
+                    <p style="color: {{ theme.text_color }};">This is how content would look with this theme applied.</p>
+                    <div class="action-buttons">
+                        <button style="background-color: {{ theme.primary_color }}; color: {{ theme.text_color }};">
+                            Primary Button
+                        </button>
+                        <button style="background-color: {{ theme.accent_color }}; color: {{ theme.text_color }};">
+                            Accent Button
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="theme-colors">
+        <h3>Color Palette</h3>
+        <div class="color-grid">
+            <div class="color-item">
+                <div class="color-swatch" style="background-color: {{ theme.primary_color }};"></div>
+                <div class="color-info">
+                    <span class="color-name">Primary</span>
+                    <span class="color-value">{{ theme.primary_color }}</span>
+                </div>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background-color: {{ theme.secondary_color }};"></div>
+                <div class="color-info">
+                    <span class="color-name">Secondary</span>
+                    <span class="color-value">{{ theme.secondary_color }}</span>
+                </div>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background-color: {{ theme.text_color }};"></div>
+                <div class="color-info">
+                    <span class="color-name">Text</span>
+                    <span class="color-value">{{ theme.text_color }}</span>
+                </div>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background-color: {{ theme.background_color }};"></div>
+                <div class="color-info">
+                    <span class="color-name">Background</span>
+                    <span class="color-value">{{ theme.background_color }}</span>
+                </div>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background-color: {{ theme.accent_color }};"></div>
+                <div class="color-info">
+                    <span class="color-name">Accent</span>
+                    <span class="color-value">{{ theme.accent_color }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeForm = document.querySelector('.theme-form');
+        
+        if (themeForm) {
+            themeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitButton = this.querySelector('button[type="submit"]');
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                        return;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.success) {
+                        submitButton.textContent = 'Theme Applied!';
+                        submitButton.classList.add('active');
+                        
+                        // Reload the page to apply the theme
+                        window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error applying theme:', error);
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}
